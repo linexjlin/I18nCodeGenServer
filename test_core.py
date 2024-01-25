@@ -14,11 +14,12 @@ data={
     }
 }
 core.update(data)
-core.add("test")
-print(core.get("About3","zh"))
+#core.add("test")
+#print(core.get("About3","zh"))
 
 core.add_lang("de")
-core.add_langs(["de","fr","nl"])
+#core.add_langs(["de","fr","nl"])
+core.translate()
 #core.delete_key("test")
-core.export_code_lang("py")
+#core.export_code_lang("py")
 core.save()

@@ -1,6 +1,8 @@
 import os
 import json
-
+import threading
+from utils import extract_code_from_markdown
+from ai import query_ai
 from dotenv import load_dotenv
 import os
 
@@ -67,6 +69,54 @@ class Core:
             return k
         return k
     
+    def merge_in(self,k,nv):
+        ov = self.data[k]
+        for k in nv:
+            ov[k]=nv[k]
+        self.data[k]=ov
+    
+    def translate(self):
+        #batches = []
+        # TODO remove some already translated language k,v
+        batch_size=10
+        keys = list(self.data.keys())
+        num_batches = len(keys) // batch_size + (1 if len(keys) % batch_size != 0 else 0)
+
+        thread=None
+        for i in range(num_batches):
+            start_idx = i * batch_size
+            end_idx = min(start_idx + batch_size, len(keys))
+            batch_keys = keys[start_idx:end_idx]
+            batch = {key: self.data[key] for key in batch_keys}
+            thread = threading.Thread(target=self.translate_batch, args=(batch,))
+            thread.start()
+            #batches.append(batch)
+
+        if thread:
+            thread.join()
+
+    def translate_batch(self,batch_data):
+        src_json = json.dumps(batch_data,ensure_ascii=False,indent=2)
+        ## translate by AI
+        ## update one by one
+        prompt = [{"role":"system","content":"Be a helpful assistant."}]
+        content = f"""
+下面的 json 是一个软件的多国语主菜单翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
+```json
+{src_json}
+```
+"""
+        print(content)
+        ocr_message = {"role":"user","content":content}
+        prompt.append(ocr_message)
+        res = query_ai(messages=prompt)
+        codes = extract_code_from_markdown(res)
+
+        if len(codes)>0:
+            res_batch_data = json.loads(codes[0])
+            for k in res_batch_data:
+                self.merge_in(k,res_batch_data[k])
+        
     def export_code_lang(self,langs,lang_subfix):
         self.add_langs(langs)
         # define the file path
@@ -83,4 +133,3 @@ class Core:
                 "{project_id}",self.id,-1
             )
             return file_content
-
