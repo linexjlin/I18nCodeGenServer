@@ -13,13 +13,13 @@ data={
         "zh": "清除所有上下文"
     }
 }
-core.update(data)
+#core.update(data)
 #core.add("test")
 #print(core.get("About3","zh"))
 
-core.add_lang("de")
+#core.add_lang("de")
 #core.add_langs(["de","fr","nl"])
-core.translate()
+core.clean_translated()
 #core.delete_key("test")
 #core.export_code_lang("py")
 core.save()

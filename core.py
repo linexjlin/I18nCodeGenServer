@@ -74,12 +74,27 @@ class Core:
         for k in nv:
             ov[k]=nv[k]
         self.data[k]=ov
-    
+
+    def clean_translated(self):
+        new_data = {}
+        for key, translations in self.data.items():
+            has_translation = False
+            new_translations = {}
+            for lang, text in translations.items():
+                if text and not has_translation:
+                    has_translation = True
+                elif text and has_translation:
+                    continue
+                new_translations[lang] = text
+            new_data[key] = new_translations
+        return new_data
+
     def translate(self):
         #batches = []
         # TODO remove some already translated language k,v
+        data = self.clean_translated()
         batch_size=10
-        keys = list(self.data.keys())
+        keys = list(data.keys())
         num_batches = len(keys) // batch_size + (1 if len(keys) % batch_size != 0 else 0)
 
         thread=None
@@ -87,7 +102,7 @@ class Core:
             start_idx = i * batch_size
             end_idx = min(start_idx + batch_size, len(keys))
             batch_keys = keys[start_idx:end_idx]
-            batch = {key: self.data[key] for key in batch_keys}
+            batch = {key: data[key] for key in batch_keys}
             thread = threading.Thread(target=self.translate_batch, args=(batch,))
             thread.start()
             #batches.append(batch)
