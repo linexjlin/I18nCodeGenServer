@@ -2,4 +2,3 @@ openai
 requests
 fastapi
 python-dotenv
-threading
