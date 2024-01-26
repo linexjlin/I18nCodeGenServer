@@ -17,10 +17,11 @@ def v_get(k):
     response = requests.get(url, headers=headers)
     if "result" in response.json():
         b64_value = response.json()["result"]
-        if len(b64_value)==0:
+        if b64_value:
+            json_value = base64.b64decode(b64_value.encode()).decode()
+            value = json.loads(json_value)
+            return value
+        else:
             return None
-        json_value = base64.b64decode(b64_value.encode()).decode()
-        value = json.loads(json_value)
-        return value
     else:
         return None
