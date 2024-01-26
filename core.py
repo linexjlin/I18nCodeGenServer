@@ -3,6 +3,7 @@ import json
 import threading
 from utils import extract_code_from_markdown
 from ai import query_ai
+from vercel_kv import v_get,v_set
 from dotenv import load_dotenv
 import os
 
@@ -38,11 +39,19 @@ class Core:
         self.load()
 
     def load(self):
+        if os.getenv("VERCEL"):
+            data=v_get(self.id)
+            if data:
+                self.data=data
+            return
         if  os.path.isfile(self.data_json):
             self.data = json.load(open(self.data_json, "r"))
 
     def save(self):
-        json.dump(self.data, open(self.data_json, "w"),ensure_ascii=False,indent=4)
+        if os.getenv('VERCEL'):
+            v_set(self.id,self.data)
+        else:
+            json.dump(self.data, open(self.data_json, "w"),ensure_ascii=False,indent=4)
 
     def update(self,data):
         self.data = data
