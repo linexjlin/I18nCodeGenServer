@@ -24,7 +24,12 @@ load_dotenv()
 class Core:
     def __init__(self, id=""):
         self.id = id
-        self.data = {}
+        default_data={
+            "APP": {
+                "default":"APP",
+            }
+        }
+        self.data = default_data
         self.data_path = f"data/{id}"
         self.data_json = f"data/{id}/data.json"
         if not os.path.exists(self.data_path):
@@ -69,11 +74,11 @@ class Core:
             return k
         return k
     
-    def merge_in(self,k,nv):
-        ov = self.data[k]
-        for k in nv:
-            ov[k]=nv[k]
-        self.data[k]=ov
+    def merge_in(self,old_key,new_translated):
+        translated = self.data[old_key]
+        for l in new_translated:
+            translated[l]=new_translated[l]
+        self.data[old_key]=translated
 
     def clean_translated(self):
         new_data = {}
@@ -116,7 +121,7 @@ class Core:
         ## update one by one
         prompt = [{"role":"system","content":"Be a helpful assistant."}]
         content = f"""
-下面的 json 是一个软件的多国语, 软件UI翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
+下面的 json 是一个软件的多国语言软件的 UI翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
 ```json
 {src_json}
 ```
@@ -129,13 +134,14 @@ class Core:
 
         if len(codes)>0:
             res_batch_data = json.loads(codes[0])
+            print(res_batch_data)
             for k in res_batch_data:
                 self.merge_in(k,res_batch_data[k])
         
     def export_code_lang(self,langs,lang_subfix):
         self.add_langs(langs)
-        self.save()
         self.translate()
+        self.save()
         # define the file path
         file_path = f"templates/languages{lang_subfix}"
 
