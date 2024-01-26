@@ -30,6 +30,7 @@ class Core:
             }
         }
         self.data = default_data
+        self.translate_notes = ""
         self.data_path = f"data/{id}"
         self.data_json = f"data/{id}/data.json"
         if not os.path.exists(self.data_path):
@@ -129,9 +130,16 @@ class Core:
         src_json = json.dumps(batch_data,ensure_ascii=False,indent=2)
         ## translate by AI
         ## update one by one
+        if len(self.translate_notes.strip())>5:
+            notes = f"""这是翻译时你要注意的地方：
+{self.translate_notes}
+
+"""
+        else:
+            notes=""
         prompt = [{"role":"system","content":"Be a helpful assistant."}]
         content = f"""
-下面的 json 是一个软件的多国语言软件的 UI翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
+下面的 json 是一个软件的多国语言软件的 UI翻译，帮我补全剩余的翻译, {notes}现在开始，直接给我结果并以```json开头
 ```json
 {src_json}
 ```
@@ -156,7 +164,7 @@ class Core:
         file_path = f"templates/languages{lang_subfix}"
         if len(template)>0 and os.path.exists(f"templates/{template}"):
             file_path = f"templates/{template}"
-            
+
         print(f"using template:",file_path)
 
         # read the content of the file
@@ -170,3 +178,6 @@ class Core:
                 "{project_id}",self.id,-1
             )
             return file_content
+        
+    def set_translate_notes(self,notes):
+        self.translate_notes=notes
