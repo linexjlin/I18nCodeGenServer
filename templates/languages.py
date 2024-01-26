@@ -7,7 +7,7 @@ data_str="""{languages_json}"""
 langs_data=json.loads(data_str)
 
 def UText(k):
-    l = os.getenv("ULANG") if os.getenv("ULANG") else "zh"
+    l = os.getenv("ULANG") if os.getenv("ULANG") else "default"
     if k in langs_data:
         if l in langs_data[k]:
             return langs_data[k][l] if langs_data[k][l] else k
