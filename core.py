@@ -148,12 +148,16 @@ class Core:
             for k in res_batch_data:
                 self.merge_in(k,res_batch_data[k])
         
-    def export_code_lang(self,langs,lang_subfix):
+    def export_code_lang(self,langs,lang_subfix,template):
         self.add_langs(langs)
         self.translate()
         self.save()
         # define the file path
         file_path = f"templates/languages{lang_subfix}"
+        if len(template)>0 and os.path.exists(f"templates/{template}"):
+            file_path = f"templates/{template}"
+            
+        print(f"using template:",file_path)
 
         # read the content of the file
         with open(file_path, "r") as file:

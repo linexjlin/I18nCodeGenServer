@@ -22,7 +22,7 @@ def get_project(id):
         return pj
 
 @app.get("/{id}")
-def export(id: str, file: str, prompt: str, languages:str):
+def export(id: str, file: str, notes: str, languages:str, template: str = ""):
     langs = languages.split(",")
     pj = get_project(id)
     
@@ -30,7 +30,7 @@ def export(id: str, file: str, prompt: str, languages:str):
     if not suffix:
         raise HTTPException(status_code=400, detail="Unable to detect file type")
     
-    fileContent = pj.export_code_lang(langs,suffix)
+    fileContent = pj.export_code_lang(langs,suffix,template)
     with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as temp_file:
         temp_file.write(fileContent.encode())
         return FileResponse(temp_file.name, filename=file)
