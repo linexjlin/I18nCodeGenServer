@@ -83,6 +83,17 @@ class Core:
     def clean_translated(self):
         new_data = {}
         for key, translations in self.data.items():
+
+            translation_finish = True
+            for lang, text in translations.items():
+                if len(text)==0:
+                    translation_finish=False
+                    break
+                
+            if translation_finish:
+                print("all translaion complete",translations)
+                continue
+
             has_translation = False
             new_translations = {}
             for lang, text in translations.items():
@@ -96,7 +107,6 @@ class Core:
 
     def translate(self):
         #batches = []
-        # TODO remove some already translated language k,v
         data = self.clean_translated()
         batch_size=10
         keys = list(data.keys())
