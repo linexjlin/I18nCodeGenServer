@@ -101,7 +101,7 @@ class Core:
         ## update one by one
         prompt = [{"role":"system","content":"Be a helpful assistant."}]
         content = f"""
-下面的 json 是一个软件的多国语主菜单翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
+下面的 json 是一个软件的多国语, 软件UI翻译，帮我补全剩余的翻译，直接给我结果并以```json开头
 ```json
 {src_json}
 ```
@@ -119,6 +119,8 @@ class Core:
         
     def export_code_lang(self,langs,lang_subfix):
         self.add_langs(langs)
+        self.save()
+        self.translate()
         # define the file path
         file_path = f"templates/languages{lang_subfix}"
 
