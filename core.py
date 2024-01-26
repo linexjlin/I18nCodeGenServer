@@ -32,10 +32,12 @@ class Core:
         }
         self.data = default_data
         self.translate_notes = ""
-        self.data_path = f"data/{id}"
-        self.data_json = f"data/{id}/data.json"
-        if not os.path.exists(self.data_path):
-            os.makedirs(self.data_path)
+        if not os.getenv("VERCEL"):
+            self.data_path = f"data/{id}"
+            self.data_json = f"data/{id}/data.json"
+
+            if not os.path.exists(self.data_path):
+                os.makedirs(self.data_path)
         self.load()
 
     def load(self):
