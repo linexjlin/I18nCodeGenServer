@@ -20,8 +20,10 @@ def UText(k):
         return k
 
 def request_online(k,l):
-    url = f"{api_addr}/{project_id}/{k}/{l}"  # Replace with the actual URL of your API endpoint
-    response = requests.get(url)
+    url = f"{api_addr}/{project_id}/key"  # Replace with the actual URL of your API endpoint
+
+    params = {'k': k,'l':l}
+    response = requests.get(url,  params=params)
 
     if response.status_code == 200:
         result = response.json()["result"]

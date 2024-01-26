@@ -42,19 +42,19 @@ def update_data(id: str, update_data: UpdateData):
     pj.update(update_data.data)
     return {"message": "Data updated successfully"}
 
-@app.delete("/{id}/{k}")
+@app.delete("/{id}/key")
 def delete_data(id: str, k: str):
     pj = get_project(id)
     pj.delete(k)
     return {"message": f"Key '{k}' deleted successfully"}
 
-@app.put("/{id}/{k}")
+@app.put("/{id}/key")
 def add_data(id: str, k: str):
     pj = get_project(id)
     pj.add(k)
     return {"message": f"Key '{k}' added successfully"}
 
-@app.get("/{id}/{k}/{l}")
+@app.get("/{id}/key")
 def get_data(id: str, k: str, l: str):
     pj = get_project(id)
     value = pj.get(k, l)
