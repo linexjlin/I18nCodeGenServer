@@ -18,6 +18,7 @@ here is the languages.py:
 ![](https://ipfs.ee/ipfs/QmT27sLSS5pDMaHzoN6PqEXMthijApwShn44G7ezEnHF82/18cad445-056b-4711-b24f-5bc5b693f7f6.png)
 
 3. Put the downloaded file into your project. 
+
 ![](https://ipfs.ee/ipfs/QmQJHuhdPjFMn7W6wJYoG3qatAuciDf4GfC1YhjbHLPVat/a10fd56c-d3ef-45fd-877a-8d13d8263c77.png)
 
 4. Replace call UText funcion in every UI string. When you run the software, you will find that the interface language of your software has not changed. Don't worry, during the running program, all the texts to be translated will be sent to the server.
