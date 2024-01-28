@@ -54,6 +54,12 @@ def add_data(id: str, k: str):
     pj.add(k)
     return {"message": f"Key '{k}' added successfully"}
 
+@app.put("/{id}/translate")
+def add_data(id: str, k: str, l: str, v: str):
+    pj = get_project(id)
+    ret = pj.add_translate(k,l,v)
+    return {"message": f"'{k} '{l}' '{v}' added, with return {ret}"}
+
 @app.get("/{id}/key")
 def get_data(id: str, k: str, l: str):
     pj = get_project(id)

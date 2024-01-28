@@ -64,6 +64,17 @@ class Core:
     def add(self,k):
         self.data[k]={"default":k}
 
+    def add_translate(self,k,l,v):
+        if k not in self.data:
+            return f"not key found {k}"
+        else:
+            if l not in self.data[k]:
+                return f"not language found {k}:{l}"
+            else:
+                self.data[k][l] = v
+                self.save()
+                return "success"
+
     def add_lang(self,l):
         for k in self.data:
             if l not in self.data[k]:
