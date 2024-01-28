@@ -1,10 +1,8 @@
 import requests
-import json
 import os
 
-data_str="""{languages_json}"""
+langs_data={languages_json}
 
-langs_data=json.loads(data_str)
 
 def UText(k):
     l = os.getenv("ULANG") if os.getenv("ULANG") else "default"
