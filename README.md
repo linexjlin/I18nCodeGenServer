@@ -25,7 +25,8 @@ here is the languages.py:
 
 ![](https://ipfs.ee/ipfs/QmVLLHRpk5MbFPkftRSsZnANjLxUpcSAmWXfduU7CShTPz/b688a2c8-e4bf-4dbe-9da7-4669b7787168.png)
 
-1. Download again, this time you will get a updated version that all text are translated. Set ULANG enviroment to other like `de` to check the effect.
+1. Download again, this time you will get a updated version that all text are translated. Set ULANG enviroment to other languages like `de` to check the effect.
+
 ![](https://ipfs.ee/ipfs/QmWXGgLB1oyBjQH9f4z8QJJqtUNtqXxp2opBuUZbexsafw/5912bedd-832e-4772-b892-d183b985858c.png)
 
 Detail document check [here](./API.md)
