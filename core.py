@@ -171,6 +171,7 @@ class Core:
         prompt.append(ocr_message)
         res = query_ai(messages=prompt)
         codes = extract_code_from_markdown(res)
+        print(codes)
 
         if len(codes)>0:
             res_batch_data = json.loads(codes[0])

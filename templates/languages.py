@@ -18,7 +18,7 @@ def UText(k):
         return k
 
 def request_online(k,l):
-    url = f"{api_addr}/{project_id}/key"  # Replace with the actual URL of your API endpoint
+    url = f"{api_addr}/{project_id}/key"
 
     params = {'k': k,'l':l}
     response = requests.get(url,  params=params)
