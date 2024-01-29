@@ -10,7 +10,7 @@ This documentation outlines the API endpoints provided for interacting with a pr
 
 Fetches the export of a project's data.
 
-Support formats: python, json
+Support formats: python, json, go, js ... for more template please make a pull request.
 
 #### Parameters
 
@@ -99,7 +99,7 @@ import requests
 
 def test():
     url = "https://i18n.linkown.com/{id}/translate"
-    id = "ce435723-a840-468d-a57f-0bb95cbfbcfb"
+    id = "ce435725-a840-468d-a57f-0bb95cbfbcfb"
     k = "APP"
     l = "en"
     v = f"""
