@@ -10,6 +10,8 @@ This documentation outlines the API endpoints provided for interacting with a pr
 
 Fetches the export of a project's data.
 
+Support formats: python, json
+
 #### Parameters
 
 - `id` (path variable) - Unique identifier for the project.
@@ -21,6 +23,12 @@ Fetches the export of a project's data.
 #### Response
 
 - `FileResponse` - The exported file content for the project.
+
+#### examples
+```shell
+curl https://i18n.linkown.com/ce405725-a840-468d-a57f-0bb95cbfbcfb?file=languages.py&template=languages.py&languages=en,de,fr,az
+curl https://i18n.linkown.com/ce405725-a840-468d-a57f-0bb95cbfbcfb?file=languages.json&template=languages.json&languages=en,de,fr,az
+```
 
 ### Update Project Data
 
